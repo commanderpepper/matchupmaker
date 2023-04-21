@@ -11,6 +11,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import model.Game
+import org.jetbrains.skia.impl.Log
+import repo.GameDataSourceImpl
+import screens.MatchupScreen
 
 @Composable
 @Preview
@@ -18,22 +21,29 @@ fun App() {
     var text by remember { mutableStateOf("Hello, World!") }
     var currentGame by remember { mutableStateOf("No game chosen") }
     val games = Game.values()
+    val dataSource = GameDataSourceImpl(Game.StreetFighter6)
 
     MaterialTheme {
-        Column {
-            Button(onClick = {
-                text = "Hello, Desktop!"
-            }) {
-                Text(text)
-            }
-            Text(text = currentGame)
-            games.forEach {
-                Button(onClick = {currentGame = it.gameName}){
-                    Text("Choose ${it.gameName}")
-                }
-            }
+        MatchupScreen(characterListFlow = dataSource.getGameMatchups()){ character, fl ->
+            Log.debug("$character was changed to $fl")
         }
     }
+
+//    MaterialTheme {
+//        Column {
+//            Button(onClick = {
+//                text = "Hello, Desktop!"
+//            }) {
+//                Text(text)
+//            }
+//            Text(text = currentGame)
+//            games.forEach {
+//                Button(onClick = {currentGame = it.gameName}){
+//                    Text("Choose ${it.gameName}")
+//                }
+//            }
+//        }
+//    }
 }
 
 fun main() = application {

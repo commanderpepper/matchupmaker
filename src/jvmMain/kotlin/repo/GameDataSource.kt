@@ -5,7 +5,5 @@ import model.Character
 import model.Game
 
 interface GameDataSource {
-    fun getGameRoster(): Flow<List<Character>>
-
-    fun getGameMatchups(): Flow<Map<Character, Float>>
+    fun getGameMatchups(): Flow<Map<Character, Map<Character, Float>>>
 }
