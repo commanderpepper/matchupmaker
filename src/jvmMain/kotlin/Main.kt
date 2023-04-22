@@ -24,8 +24,9 @@ fun App() {
     val dataSource = GameDataSourceImpl(Game.StreetFighter6)
 
     MaterialTheme {
-        MatchupScreen(characterListFlow = dataSource.getGameMatchups()){ character, fl ->
-            Log.debug("$character was changed to $fl")
+        MatchupScreen(characterListFlow = dataSource.getGameMatchups()){ characterOne, characterTwo, fl ->
+            Log.debug("$characterOne vs $characterTwo was changed to $fl")
+            dataSource.updateMatchup(characterOne, characterTwo, fl)
         }
     }
 

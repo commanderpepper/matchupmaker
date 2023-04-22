@@ -3,6 +3,7 @@ package screens
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material.Button
 
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -15,12 +16,17 @@ import model.Game
 import model.STREETFIGHTER6CAST
 
 @Composable
-fun MatchupScreen(characterListFlow: Flow<Map<Character, Map<Character, Float>>>, onMatchupChange : (Character, Float) -> Unit){
+fun MatchupScreen(characterListFlow: Flow<Map<Character, Map<Character, Float>>>, onMatchupChange : (Character, Character, Float) -> Unit){
     val characterListState = characterListFlow.collectAsState(mapOf())
     Column {
         characterListState.value.forEach { character ->
             Text(text = character.key.name)
             CharacterRow(character.value)
+            Button(onClick = {
+                 onMatchupChange(character.key, character.key, 9f)
+            }, content = {
+                Text("Change something")
+            })
         }
     }
 }
@@ -46,7 +52,7 @@ fun CharacterRowPreview(){
 @Preview
 @Composable
 fun MatchupScreenPreview(){
-    MatchupScreen(characterListFlow = flow { Game.StreetFighter6.roster }){ character, fl ->
+    MatchupScreen(characterListFlow = flow { Game.StreetFighter6.roster }){ _, _, _ ->
 
     }
 }
