@@ -23,7 +23,10 @@ class GameDataSourceImpl(private val game: Game) : GameDataSource {
     }
 
     override fun updateMatchup(characterOne: Character, characterTwo: Character, newMatchup: Float) {
-        matchups[characterOne]?.set(characterTwo, newMatchup)
+        if(characterOne != characterTwo){
+            matchups[characterOne]?.set(characterTwo, newMatchup)
+            matchups[characterTwo]?.set(characterOne, 10f - newMatchup)
+        }
         Logger.getLogger("Humza").log(Level.INFO, "Updated map is $matchups")
     }
 }

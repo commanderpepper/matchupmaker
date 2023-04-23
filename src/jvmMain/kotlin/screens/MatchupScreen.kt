@@ -5,14 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import model.Character
-import model.Game
-import model.Matchup
-import model.MatchupRow
+import model.*
 
 @Composable
 fun MatchupScreen(characterListFlow: Flow<List<MatchupRow>>, onMatchupChange : (Character, Character, Float) -> Unit){
@@ -25,7 +23,9 @@ fun MatchupScreen(characterList: List<MatchupRow>, onMatchupChange : (Character,
     Column {
         characterList.forEach { matchupRow ->
             Text(text = matchupRow.character.name)
-            CharacterRow(matchupRow.matchups)
+            CharacterRow(matchupRow.matchups){ otherCharacter, newWinPercentage ->
+                onMatchupChange(matchupRow.character, otherCharacter, newWinPercentage.percentage)
+            }
             Button(onClick = {
                 onMatchupChange(matchupRow.character, matchupRow.character, 9f)
             }, content = {
@@ -36,12 +36,14 @@ fun MatchupScreen(characterList: List<MatchupRow>, onMatchupChange : (Character,
 }
 
 @Composable
-fun CharacterRow(matchups: List<Matchup>){
+fun CharacterRow(matchups: List<Matchup>, onWinPercentageChange : (Character, WinPercentage) -> Unit){
     Row {
         matchups.forEach { (character, winpercentage) ->
             Column {
                 Text(text = character.name)
-                Text("$winpercentage")
+                TextField(value = "${winpercentage.percentage}", onValueChange = {
+                    onWinPercentageChange(character, WinPercentage(it.toFloat()))
+                })
             }
         }
     }
