@@ -7,9 +7,9 @@ import model.*
 import java.util.logging.Level
 import java.util.logging.Logger
 
-class GameDataSourceImpl(private val game: Game) : GameDataSource {
+class GameDataSourceImpl(game: Game) : GameDataSource {
 
-    private val matchups : Map<Character, MutableMap<Character, Float>> = game.createMatchupMap()
+    private val matchups : Map<Character, MutableMap<Character, Double>> = game.createMatchupMap()
 
     override fun getGameMatchups(): Flow<List<MatchupRow>> = flow {
         while (true){
@@ -22,11 +22,16 @@ class GameDataSourceImpl(private val game: Game) : GameDataSource {
         }
     }
 
-    override fun updateMatchup(characterOne: Character, characterTwo: Character, newMatchup: Float) {
+    override fun updateMatchup(characterOne: Character, characterTwo: Character, newMatchup: Double) {
+        val roundedMatchup = newMatchup.round()
         if(characterOne != characterTwo){
-            matchups[characterOne]?.set(characterTwo, newMatchup)
-            matchups[characterTwo]?.set(characterOne, 10f - newMatchup)
+            matchups[characterOne]?.set(characterTwo, roundedMatchup)
+            matchups[characterTwo]?.set(characterOne, 10 - roundedMatchup)
         }
         Logger.getLogger("Humza").log(Level.INFO, "Updated map is $matchups")
     }
+}
+
+fun Double.round(): Double {
+    return "%.1f".format(this).toDouble()
 }

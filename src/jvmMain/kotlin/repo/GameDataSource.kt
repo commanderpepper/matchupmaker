@@ -7,5 +7,5 @@ import model.MatchupRow
 interface GameDataSource {
     fun getGameMatchups(): Flow<List<MatchupRow>>
 
-    fun updateMatchup(characterOne: Character, characterTwo: Character, newMatchup: Float)
+    fun updateMatchup(characterOne: Character, characterTwo: Character, newMatchup: Double)
 }
