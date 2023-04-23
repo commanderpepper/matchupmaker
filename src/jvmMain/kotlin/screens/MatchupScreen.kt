@@ -42,10 +42,22 @@ fun CharacterRow(matchups: List<Matchup>, onWinPercentageChange : (Character, Wi
             Column {
                 Text(text = character.name)
                 TextField(value = "${winpercentage.percentage}", onValueChange = {
-                    onWinPercentageChange(character, WinPercentage(it.toFloat()))
+                    if(validateWinPercentage((it))){
+                        onWinPercentageChange(character, WinPercentage(it.toFloat()))
+                    }
                 })
             }
         }
+    }
+}
+
+fun validateWinPercentage(possibleWinPercentage: String): Boolean {
+    return try {
+        val winPercentageAsFloat = possibleWinPercentage.toFloat()
+        winPercentageAsFloat > 0 && winPercentageAsFloat < 10
+    }
+    catch (exception: Exception){
+        false
     }
 }
 
