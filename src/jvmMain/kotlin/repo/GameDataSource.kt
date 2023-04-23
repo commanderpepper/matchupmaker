@@ -2,10 +2,10 @@ package repo
 
 import kotlinx.coroutines.flow.Flow
 import model.Character
-import model.Game
+import model.MatchupRow
 
 interface GameDataSource {
-    fun getGameMatchups(): Flow<Map<Character, Map<Character, Float>>>
+    fun getGameMatchups(): Flow<List<MatchupRow>>
 
     fun updateMatchup(characterOne: Character, characterTwo: Character, newMatchup: Float)
 }
