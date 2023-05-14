@@ -71,15 +71,15 @@ fun validateWinPercentage(possibleWinPercentage: String): Boolean {
 fun CharacterRowPreview(){
     val matchupList = listOf(
         Matchup(
-            character = Character("Ryu"),
+            character = model.Character("Ryu", "RY"),
             winPercentage = WinPercentage(5.0)
         ),
         Matchup(
-            character = Character("Ken"),
+            character = Character("Ken", "KN"),
             winPercentage = WinPercentage(5.0)
         ),
         Matchup(
-            character = Character("Chun Li"),
+            character = Character("Chun Li", "CL"),
             winPercentage = WinPercentage(5.0)
         )
     )
