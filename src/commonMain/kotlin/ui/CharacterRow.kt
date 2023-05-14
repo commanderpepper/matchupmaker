@@ -1,0 +1,58 @@
+package ui
+
+import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import model.Character
+import model.Matchup
+import model.WinPercentage
+import model.validateWinPercentage
+
+@Composable
+fun CharacterRow(character: Character, matchups: List<Matchup>, onWinPercentageChange : (Character, WinPercentage) -> Unit){
+    Row {
+        Text(text = character.name)
+        matchups.forEach { (character, winpercentage) ->
+            TextField(
+                modifier = Modifier.width(64f.dp),
+                value = "${winpercentage.percentage}",
+                maxLines = 1,
+                onValueChange = {
+                    if(validateWinPercentage((it))){
+                        onWinPercentageChange(character, WinPercentage(it.toDouble()))
+                    }
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
+            )
+        }
+        Text(text = matchups.sumOf { it.winPercentage.percentage }.toString())
+    }
+}
+
+@Preview
+@Composable
+fun CharacterRowPreview(){
+    val ryuCharacter = Character("Ryu", "RY")
+    val matchupList = listOf(
+        Matchup(
+            character = ryuCharacter
+        ),
+        Matchup(
+            character = Character("Ken", "KN")
+        ),
+        Matchup(
+            character = Character("Chun Li", "CL")
+        )
+    )
+    CharacterRow(ryuCharacter, matchupList){ _, _ ->
+
+    }
+}

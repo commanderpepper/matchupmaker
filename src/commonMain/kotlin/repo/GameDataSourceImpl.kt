@@ -10,6 +10,7 @@ import java.util.logging.Logger
 class GameDataSourceImpl(game: Game) : GameDataSource {
 
     private val matchups : Map<Character, MutableMap<Character, Double>> = game.createMatchupMap()
+    private val abbrs = game.roster.map { it.abbr }
 
     override fun getGameMatchups(): Flow<List<MatchupRow>> = flow {
         while (true){
@@ -29,6 +30,10 @@ class GameDataSourceImpl(game: Game) : GameDataSource {
             matchups[characterTwo]?.set(characterOne, 10 - roundedMatchup)
         }
         Logger.getLogger("Humza").log(Level.INFO, "Updated map is $matchups")
+    }
+
+    override fun getCharacterAbbreviations(): List<String> {
+        return abbrs
     }
 }
 

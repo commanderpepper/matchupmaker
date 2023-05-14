@@ -8,4 +8,6 @@ interface GameDataSource {
     fun getGameMatchups(): Flow<List<MatchupRow>>
 
     fun updateMatchup(characterOne: Character, characterTwo: Character, newMatchup: Double)
+
+    fun getCharacterAbbreviations(): List<String>
 }
