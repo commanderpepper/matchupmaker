@@ -20,14 +20,15 @@ import model.validateWinPercentage
 fun CharacterRow(character: Character, matchups: List<Matchup>, onWinPercentageChange : (Character, WinPercentage) -> Unit){
     Row {
         Text(text = character.name)
-        matchups.forEach { (character, winpercentage) ->
+        matchups.forEach { (opponent, winpercentage) ->
             TextField(
                 modifier = Modifier.width(64f.dp),
+                enabled = character != opponent,
                 value = "${winpercentage.percentage}",
                 maxLines = 1,
                 onValueChange = {
                     if(validateWinPercentage((it))){
-                        onWinPercentageChange(character, WinPercentage(it.toDouble()))
+                        onWinPercentageChange(opponent, WinPercentage(it.toDouble()))
                     }
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
