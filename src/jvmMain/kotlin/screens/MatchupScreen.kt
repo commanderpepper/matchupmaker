@@ -1,9 +1,13 @@
 package screens
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import model.*
@@ -18,7 +22,7 @@ fun MatchupScreen(characterListFlow: Flow<List<MatchupRow>>, abbrList: List<Stri
 
 @Composable
 fun MatchupScreen(characterList: List<MatchupRow>, abbrList: List<String>, onMatchupChange : (Character, Character, Double) -> Unit){
-    Column {
+    Column(modifier = Modifier.horizontalScroll(rememberScrollState()).verticalScroll(rememberScrollState())) {
         AbbrRow(characterAbbreviations = abbrList)
         characterList.forEach { matchupRow ->
 //            Text(text = matchupRow.character.name)
