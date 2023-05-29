@@ -1,15 +1,14 @@
 package ui
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import model.Character
 import model.Matchup
@@ -18,8 +17,10 @@ import model.validateWinPercentage
 
 @Composable
 fun CharacterRow(character: Character, matchups: List<Matchup>, onWinPercentageChange : (Character, WinPercentage) -> Unit){
-    Row {
-        Text(text = character.name)
+    Row(modifier = Modifier.height(IntrinsicSize.Max)) {
+        Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+            Text(text = character.name)
+        }
         matchups.forEach { (opponent, winpercentage) ->
             TextField(
                 modifier = Modifier.width(64f.dp),
@@ -34,7 +35,9 @@ fun CharacterRow(character: Character, matchups: List<Matchup>, onWinPercentageC
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
             )
         }
-        Text(text = matchups.sumOf { it.winPercentage.percentage }.toString())
+        Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+            Text(text = matchups.sumOf { it.winPercentage.percentage }.toString())
+        }
     }
 }
 
