@@ -4,6 +4,7 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,9 +19,9 @@ fun AbbrRow(modifier: Modifier = Modifier, characterAbbreviations: List<String>)
     val cellModifier =
         Modifier.border(width = 1.dp, brush = SolidColor(value = Color.Black), shape = RectangleShape).padding(4.dp)
     Row(modifier = modifier) {
-        Text(modifier = cellModifier, text = "\t\t")
+        Text(modifier = cellModifier.width(94.dp), text = "\t\t")
         characterAbbreviations.forEach { abbreviation ->
-            Text(modifier = cellModifier, text = abbreviation)
+            Text(modifier = cellModifier.width(50.dp), text = abbreviation)
         }
         Text(modifier = cellModifier, text = "-/+")
     }

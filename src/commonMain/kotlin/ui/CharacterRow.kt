@@ -18,7 +18,7 @@ import model.validateWinPercentage
 @Composable
 fun CharacterRow(character: Character, matchups: List<Matchup>, onWinPercentageChange : (Character, WinPercentage) -> Unit){
     Row(modifier = Modifier.height(IntrinsicSize.Max)) {
-        Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+        Column(modifier = Modifier.fillMaxHeight().width(100.dp), verticalArrangement = Arrangement.Center) {
             Text(text = character.name)
         }
         matchups.forEach { (opponent, winpercentage) ->
