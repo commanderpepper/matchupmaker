@@ -10,7 +10,7 @@ value class WinPercentage(val percentage: Double)
 fun validateWinPercentage(possibleWinPercentage: String): Boolean {
     return try {
         val winPercentageAsFloat = possibleWinPercentage.toDouble()
-        winPercentageAsFloat > 0 && winPercentageAsFloat < 10
+        winPercentageAsFloat >= 0 && winPercentageAsFloat <= 10
     }
     catch (exception: Exception){
         false

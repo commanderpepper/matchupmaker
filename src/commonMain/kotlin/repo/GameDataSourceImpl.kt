@@ -4,6 +4,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import model.*
+import java.util.Locale
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -38,5 +39,5 @@ class GameDataSourceImpl(game: Game) : GameDataSource {
 }
 
 fun Double.round(): Double {
-    return "%.1f".format(this).toDouble()
+    return String.format(Locale.US, "%.1f", this).toDouble()
 }
